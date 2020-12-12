@@ -48,7 +48,9 @@ const Form = () => {
   const changeHandler = (event) => {
     event.persist();
     const newForm = { ...form, [event.target.name]: event.target.value };
+    console.log(newForm);
     validateChange(event);
+
     setForm(newForm);
   };
 
@@ -94,7 +96,7 @@ const Form = () => {
             <input
               type="checkbox"
               id="mushrooms"
-              name="mushroooms"
+              name="mushrooms"
               onChange={changeHandler}
               checked={form.mushrooms}
             />
@@ -141,7 +143,11 @@ const Form = () => {
         />
         <br />
 
-        <button disabled={isButtonDisabled} type="submit">
+        <button
+          disabled={isButtonDisabled}
+          type="submit"
+          data-cy="order-button"
+        >
           Add to Order
         </button>
       </form>

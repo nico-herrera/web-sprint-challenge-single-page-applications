@@ -9,7 +9,7 @@ const Home = () => {
     <div>
       <header>
         <Link to="/pizza">
-          <button>Pizza?</button>
+          <button data-cy="pizza-button">Pizza?</button>
         </Link>
       </header>
     </div>
