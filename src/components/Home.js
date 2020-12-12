@@ -1,10 +1,19 @@
 import React from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Form from "./Form";
 import App from "../App";
 
 const Home = () => {
-  return null;
+  console.log("test");
+  return (
+    <div>
+      <header>
+        <Link to="/pizza">
+          <button>Pizza?</button>
+        </Link>
+      </header>
+    </div>
+  );
 };
 
 export default Home;

@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { formSchema } from "../Validations/userValidations";
 import * as Yup from "yup";
 
 const Form = () => {
   const [form, setForm] = useState({
     name: "",
+    pizzaSizes: "",
+    mushrooms: "",
+    bellPeppers: "",
+    tofu: "",
+    olives: "",
+    instructions: "",
   });
 
   const [errors, setErrors] = useState({
@@ -20,9 +27,22 @@ const Form = () => {
     });
   }, [form]);
 
-  const formSubmit = (event) => {
+  const formSubmit = async (event) => {
     event.preventDefault();
     console.log("submitted");
+    const postData = async () => {
+      try {
+        const resp = await axios.post("https://reqres.in/api/users", form);
+        // window.location = "/retrieve";
+        // setErrors(null);
+        console.log(form);
+        console.log(resp.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    postData();
   };
 
   const changeHandler = (event) => {
@@ -56,12 +76,71 @@ const Form = () => {
           onChange={changeHandler}
         />
         {errors.name.length > 0 ? <p className="error">{errors.name}</p> : null}
+        <br />
         <label htmlFor="pizzaSizes"></label>
-        <select id="pizzaSizes" name="pizzaSizes">
-          <option>Small</option>
-          <option>Medium</option>
-          <option>Large</option>
+        <select
+          id="pizzaSizes"
+          name="pizzaSizes"
+          value={form.pizzaSizes}
+          onChange={changeHandler}
+        >
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
         </select>
+        <br />
+        <div className="toppings">
+          <label htmlFor="mushrooms">
+            <input
+              type="checkbox"
+              id="mushrooms"
+              name="mushroooms"
+              onChange={changeHandler}
+              checked={form.mushrooms}
+            />
+            Mushrooms
+          </label>
+          <label htmlFor="bellPeppers">
+            <input
+              type="checkbox"
+              id="bellPeppers"
+              name="bellPeppers"
+              onChange={changeHandler}
+              checked={form.bellPeppers}
+            />
+            Bell Peppers
+          </label>
+          <label htmlFor="tofu">
+            <input
+              type="checkbox"
+              id="tofu"
+              name="tofu"
+              onChange={changeHandler}
+              checked={form.tofu}
+            />
+            Tofu
+          </label>
+          <label htmlFor="olives">
+            <input
+              type="checkbox"
+              id="olives"
+              name="olives"
+              onChange={changeHandler}
+              checked={form.olives}
+            />
+            Olives
+          </label>
+        </div>
+        <label htmlFor="specialInstructions"></label>
+        <textarea
+          type="text"
+          id="specialInstructions"
+          name="instructions"
+          value={form.instructions}
+          onChange={changeHandler}
+        />
+        <br />
+
         <button disabled={isButtonDisabled} type="submit">
           Add to Order
         </button>
